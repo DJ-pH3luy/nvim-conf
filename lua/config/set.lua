@@ -9,7 +9,7 @@ vim.opt.termguicolors = true
 
 vim.opt.timeoutlen = 2000
 
-vim.opt.laststatus = 2         -- Or 3 for global statusline
+vim.opt.laststatus = 2 -- Or 3 for global statusline
 vim.opt.statusline = " %f %m %= %l:%c "
 
 vim.opt.nu = true
@@ -41,3 +41,11 @@ vim.opt.isfname:append("@-@")
 vim.opt.updatetime = 50
 
 -- vim.opt.colorcolumn = "80"
+
+vim.diagnostic.config({
+    virtual_text = false,
+    virtual_lines = true,
+    update_in_insert = true,
+    signs = true,
+    severity_sort = true,
+})
