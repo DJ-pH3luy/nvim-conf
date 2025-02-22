@@ -42,10 +42,4 @@ vim.opt.updatetime = 50
 
 -- vim.opt.colorcolumn = "80"
 
-vim.diagnostic.config({
-    virtual_text = false,
-    virtual_lines = true,
-    update_in_insert = true,
-    signs = true,
-    severity_sort = true,
-})
+
