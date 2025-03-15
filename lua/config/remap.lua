@@ -31,21 +31,38 @@ vim.keymap.set("n", "Q", "<nop>")
 
 vim.keymap.set("n", "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
 
+local _border = "rounded"
+
+local function bordered_hover(_opts)
+    _opts = _opts or {}
+    return vim.lsp.buf.hover(vim.tbl_deep_extend("force", _opts, {
+        border = _border
+    }))
+end
+
+local function bordered_signature_help(_opts)
+    _opts = _opts or {}
+    return vim.lsp.buf.signature_help(vim.tbl_deep_extend("force", _opts, {
+        border = _border
+    }))
+end
+
 vim.api.nvim_create_autocmd('LspAttach', {
     desc = 'LSP actions',
     callback = function(event)
         local opts = { buffer = event.buf }
 
-        vim.keymap.set("n", "<leader>f", vim.lsp.buf.format)
-        vim.keymap.set('n', 'gh', '<cmd>lua vim.lsp.buf.hover()<cr>', opts)
+        -- vim.keymap.set('n', 'gh', '<cmd>lua vim.lsp.buf.hover()<cr>', opts)
+        vim.keymap.set('n', 'gh', bordered_hover, opts)
         vim.keymap.set('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<cr>', opts)
         vim.keymap.set('n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<cr>', opts)
         vim.keymap.set('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<cr>', opts)
         vim.keymap.set('n', 'go', '<cmd>lua vim.lsp.buf.type_definition()<cr>', opts)
         vim.keymap.set('n', 'gr', '<cmd>lua vim.lsp.buf.references()<cr>', opts)
-        vim.keymap.set('n', 'gs', '<cmd>lua vim.lsp.buf.signature_help()<cr>', opts)
+        vim.keymap.set('n', 'gq', '<cmd>lua vim.lsp.buf.code_action()<cr>', opts)
         vim.keymap.set('n', '<F2>', '<cmd>lua vim.lsp.buf.rename()<cr>', opts)
-        vim.keymap.set({ 'n', 'x' }, '<F3>', '<cmd>lua vim.lsp.buf.format({async = true})<cr>', opts)
-        vim.keymap.set('n', '<F4>', '<cmd>lua vim.lsp.buf.code_action()<cr>', opts)
+        vim.keymap.set('n', '<leader>rn', '<cmd>lua vim.lsp.buf.rename()<cr>', opts)
+        vim.keymap.set('n', '<leader>ch', bordered_signature_help, opts)
+        vim.keymap.set({ 'n', 'x' }, '<leader>ff', '<cmd>lua vim.lsp.buf.format({async = true})<cr>', opts)
     end,
 })
