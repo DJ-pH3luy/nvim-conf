@@ -1,3 +1,4 @@
+-- didn't get it to work yet
 return {
     {
         "toppair/peek.nvim",

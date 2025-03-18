@@ -28,7 +28,17 @@ return {
             cmp_lsp.default_capabilities())
 
         require("fidget").setup({})
-        require("mason").setup()
+        require("mason").setup({
+            ui = {
+                border = "rounded",
+                icons = {
+                    package_installed = "✓",
+                    package_pending = "➜",
+                    package_uninstalled = "✗"
+                }
+            }
+        })
+        -- require("mason").setup()
         require("mason-lspconfig").setup({
             ensure_installed = {
                 "lua_ls",
@@ -136,17 +146,17 @@ return {
 
         vim.diagnostic.config({
             virtual_text = false,
-            virtual_lines = true,
+            virtual_lines = false,
             update_in_insert = true,
             signs = true,
             severity_sort = true,
             float = {
                 focusable = false,
-                style = "minimal",
-                border = "rounded",
-                source = "always",
-                header = "",
-                prefix = "",
+                border = 'rounded',
+                source = 'always',
+                prefix = ' ',
+                suffix = ' ',
+                scope = 'cursor',
             },
         })
     end
