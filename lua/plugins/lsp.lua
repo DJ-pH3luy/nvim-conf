@@ -19,7 +19,17 @@ return {
             formatters_by_ft = {
             }
         })
-
+        vim.lsp.config('gopls', {
+            settings = {
+                gopls = {
+                    analyses = {
+                        unusedparams = true,
+                    },
+                    staticcheck = true,
+                    gofumpt = true,
+                }
+            }
+        })
         vim.lsp.config("lua_ls", {
             settings = {
                 Lua = {
@@ -28,6 +38,22 @@ return {
                         globals = { "bit", "vim", "it", "describe", "before_each", "after_each" },
                     }
                 }
+            }
+        })
+        vim.lsp.config('rust_analyzer', {
+            imports = {
+                granularity = {
+                    group = "module",
+                },
+                prefix = "self",
+            },
+            cargo = {
+                buildScripts = {
+                    enable = true,
+                }
+            },
+            procMacro = {
+                enable = true
             }
         })
 
